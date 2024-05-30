@@ -9,10 +9,10 @@ jobs:
         run: |
           sudo systemctl stop docker
           sudo systemctl disable docker
-          sudo apt remove --auto-remove -y docker-ce docker-ce-cli
+          sudo apt remove --auto-remove -y docker-ce
           sudo rm -rf /usr/libexec/docker
           sudo rm -rf /etc/docker
-          sudo apt purge --auto-remove -y docker-ce docker-ce-cli
+          sudo apt purge --auto-remove -y docker-ce
           sudo apt clean
       - name: Find the whcih network libraries are used
         run: |
