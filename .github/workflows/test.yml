@@ -5,8 +5,21 @@ jobs:
     name: incus-test-with-almalinux
     runs-on: ubuntu-latest
     steps:
+      - name: Stop and Unsintall Docker
+        run: |
+          sudo systemctl stop docker
+          sudo systemctl disable docker
+          sudo apt remove --auto-remove -y docker-ce
+          sudo rm -rf /usr/libexec/docker
+          sudo rm -rf /etc/docker
+          sudo apt purge --auto-remove -y docker-ce
+          sudo apt clean
+      - name: Reset Network
+        run: |
+          sudo systemctl restart systemd-networkd
       - name: Install Incus
         run: |
+          sudo apt update
           # We can use the official Ubuntu APT repository when
           # ubuntu-latest is Ubuntu 24.04.
           sudo curl -fsSL https://pkgs.zabbly.com/key.asc -o /etc/apt/keyrings/zabbly.asc
@@ -26,6 +39,7 @@ jobs:
         run: |
           sudo incus admin init --auto
           sudo incus launch images:almalinux/8 target
+          sleep 10
           sudo incus exec target -- sudo dnf update -y
           sudo incus stop target
           sudo incus delete target
