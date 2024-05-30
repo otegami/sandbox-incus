@@ -14,9 +14,6 @@ jobs:
           sudo rm -rf /etc/docker
           sudo apt purge --auto-remove -y docker-ce
           sudo apt clean
-      - name: Find the whcih network libraries are used
-        run: |
-          sudo systemctl status systemd-networkd
       - name: Reset Network
         run: |
           sudo systemctl restart systemd-networkd
