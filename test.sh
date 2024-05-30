@@ -9,8 +9,8 @@ until sudo incus exec target -- ping -c 1 google.com; do
     echo "Network is not ready after $max_retry attempts. Exiting."
     exit 1
   fi
-  echo "Waiting for network to be ready... retrying in 1 second."
-  sleep 1
+  echo "Waiting for network to be ready... retrying in 2 second."
+  sleep 2
 done
 echo "Network is ready. Performing system update."
 sudo incus exec target -- sudo dnf update -y
