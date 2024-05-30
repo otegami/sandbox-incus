@@ -14,8 +14,14 @@ jobs:
           sudo rm -rf /etc/docker
           sudo rm -rf /var/lib/docker
           sudo rm -rf /var/run/docker.sock
-      - name: Restart network service
-        run: sudo systemctl restart networking
+      - name: Find the whcih network libraries are used
+        run: |
+          sudo systemctl status NetworkManager
+          sudo systemctl status systemd-networkd
+      - name: Reset Network
+        run: |
+          sudo systemctl restart NetworkManager
+          sudo systemctl restart systemd-networkd
       - name: Install Incus
         run: |
           # We can use the official Ubuntu APT repository when
