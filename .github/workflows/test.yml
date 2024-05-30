@@ -10,6 +10,10 @@ jobs:
           sudo apt remove --auto-remove -y docker-ce docker-ce-cli
           sudo apt purge --auto-remove -y docker-ce docker-ce-cli
           sudo apt clean
+          sudo rm -rf /usr/libexec/docker
+          sudo rm -rf /etc/docker
+          sudo rm -rf /var/lib/docker
+          sudo rm -rf /var/run/docker.sock
       - name: Install Incus
         run: |
           # We can use the official Ubuntu APT repository when
