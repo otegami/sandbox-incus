@@ -30,8 +30,8 @@ jobs:
         run: |
           sudo incus admin init --auto
           sudo incus launch images:almalinux/8 target
-          until sudo incus exec target -- ping -c 1 google.com; do
-            echo "Waiting for network to be ready..."
+          until sudo incus exec target -- nslookup google.com; do
+            echo "Waiting for DNS resolution to be ready..."
             sleep 1
           done
           sudo incus exec target -- sudo dnf update -y
