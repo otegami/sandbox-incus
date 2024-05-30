@@ -5,6 +5,9 @@ jobs:
     name: incus-test-with-almalinux
     runs-on: ubuntu-latest
     steps:
+      - name: Unsintall Docker
+        run: |
+          sudo apt search docker
       - name: Install Incus
         run: |
           # We can use the official Ubuntu APT repository when
