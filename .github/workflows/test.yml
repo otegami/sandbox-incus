@@ -5,15 +5,15 @@ jobs:
     name: incus-test-with-almalinux
     runs-on: ubuntu-latest
     steps:
-      - name: Unsintall Docker
+      - name: Stop and Unsintall Docker
         run: |
+          sudo systemctl stop docker
+          sudo systemctl disable docker
           sudo apt remove --auto-remove -y docker-ce docker-ce-cli
-          sudo apt purge --auto-remove -y docker-ce docker-ce-cli
-          sudo apt clean
           sudo rm -rf /usr/libexec/docker
           sudo rm -rf /etc/docker
-          sudo rm -rf /var/lib/docker
-          sudo rm -rf /var/run/docker.sock
+          sudo apt purge --auto-remove -y docker-ce docker-ce-cli
+          sudo apt clean
       - name: Find the whcih network libraries are used
         run: |
           sudo systemctl status systemd-networkd
