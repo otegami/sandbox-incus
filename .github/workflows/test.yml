@@ -22,6 +22,7 @@ jobs:
           sudo systemctl restart systemd-networkd
       - name: Install Incus
         run: |
+          sudo apt update
           # We can use the official Ubuntu APT repository when
           # ubuntu-latest is Ubuntu 24.04.
           sudo curl -fsSL https://pkgs.zabbly.com/key.asc -o /etc/apt/keyrings/zabbly.asc
