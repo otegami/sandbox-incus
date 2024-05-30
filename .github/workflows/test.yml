@@ -7,7 +7,9 @@ jobs:
     steps:
       - name: Unsintall Docker
         run: |
-          sudo apt search docker
+          sudo apt remove --auto-remove -y docker-ce docker-ce-cli
+          sudo apt purge --auto-remove -y docker-ce docker-ce-cli
+          sudo apt clean
       - name: Install Incus
         run: |
           # We can use the official Ubuntu APT repository when
