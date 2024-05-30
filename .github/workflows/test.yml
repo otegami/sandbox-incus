@@ -9,9 +9,15 @@ jobs:
         run: |
           sudo systemctl stop docker
           sudo systemctl disable docker
+          sudo systemctl stop docker.socket
+          sudo systemctl disable docker.socket
+          systemctl status docker
+          systemctl status docker.socket
           sudo apt remove --auto-remove -y docker-ce
           sudo rm -rf /usr/libexec/docker
           sudo rm -rf /etc/docker
+          sudo rm -rf /var/lib/docker
+          sudo rm -rf /var/run/docker.sock
           sudo apt purge --auto-remove -y docker-ce
           sudo apt clean
       - name: Reset Network
