@@ -5,6 +5,7 @@ jobs:
     name: incus-test-with-almalinux
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - name: Install Incus
         run: |
           # We can use the official Ubuntu APT repository when
@@ -28,12 +29,4 @@ jobs:
           sudo nft flush ruleset
       - name: Access the external network on AlmaLinux using incus
         run: |
-          sudo incus admin init --auto
-          sudo incus launch images:almalinux/8 target
-          if ! timeout 10s sudo incus exec target -- ping -c 1 google.com; then
-            echo "Network is not ready after 30 seconds. Exiting."
-            exit 1
-          fi
-          sudo incus exec target -- sudo dnf update -y
-          sudo incus stop target
-          sudo incus delete target
+          sudo ./test.sh
