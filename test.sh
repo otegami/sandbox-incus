@@ -2,7 +2,7 @@ sudo incus admin init --auto
 sudo incus launch images:almalinux/8 target
 max_retry=10
 retry=0
-until sudo incus exec target -- ping -c 1 google.com; do
+until sudo incus exec target -- ping -c 1 8.8.8.8; do
   retry=$((retry + 1))
   echo "Attempt $retry of $max_retry"
   if [ $retry -ge $max_retry ]; then
