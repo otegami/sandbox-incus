@@ -17,6 +17,10 @@ jobs:
       - name: Reset Network
         run: |
           sudo systemctl restart systemd-networkd
+      - name: Reset the firewall
+        run: |
+          sudo nft list ruleset
+          sudo nft flush ruleset
       - name: Install Incus
         run: |
           sudo apt update
