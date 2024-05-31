@@ -30,9 +30,9 @@ jobs:
       - name: Access the external network on AlmaLinux using incus
         run: |
           sudo incus admin init --auto
-          sudo incus launch images:almalinux/9 target
+          sudo incus launch images:almalinux/8 target
           sleep 1 # Wait for systemd ready
-          sudo incus exec target -- sudo systemctl is-system-running --wait
+          sudo incus exec target -- bash -c "sudo systemctl is-system-running --wait"
           sudo incus exec target -- sudo dnf update -y
           sudo incus stop target
           sudo incus delete target
