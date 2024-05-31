@@ -5,6 +5,7 @@ jobs:
     name: incus-test-with-almalinux
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - name: Install Incus
         run: |
           # We can use the official Ubuntu APT repository when
@@ -22,10 +23,10 @@ jobs:
 
           sudo apt update
           sudo apt install -y -V incus
+      - name: Reset the firewall
+        run: |
+          sudo nft list ruleset
+          sudo nft flush ruleset
       - name: Access the external network on AlmaLinux using incus
         run: |
-          sudo incus admin init --auto
-          sudo incus launch images:almalinux/8 target
-          sudo incus exec target -- sudo dnf update -y
-          sudo incus stop target
-          sudo incus delete target
+          sudo ./test.sh
