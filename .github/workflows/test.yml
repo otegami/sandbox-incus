@@ -31,6 +31,7 @@ jobs:
         run: |
           sudo incus admin init --auto
           sudo incus launch images:almalinux/8 target
+          sleep 10
           sudo incus exec target -- sudo dnf update -y
           sudo incus stop target
           sudo incus delete target
