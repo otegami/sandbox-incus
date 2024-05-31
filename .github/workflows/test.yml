@@ -5,6 +5,7 @@ jobs:
     name: incus-test-with-almalinux
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - name: Install Incus
         run: |
           # We can use the official Ubuntu APT repository when
@@ -28,10 +29,4 @@ jobs:
           sudo iptables -I DOCKER-USER -i incusbr0 -j ACCEPT
           sudo iptables -I DOCKER-USER -o incusbr0 -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
       - name: Access the external network on AlmaLinux using incus
-        run: |
-          sudo incus admin init --auto
-          sudo incus launch images:almalinux/8 target
-          sleep 10
-          sudo incus exec target -- sudo dnf update -y
-          sudo incus stop target
-          sudo incus delete target
+        run: sudo ./test.sh
