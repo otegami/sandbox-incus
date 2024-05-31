@@ -1,6 +1,6 @@
 sudo incus admin init --auto
 sudo incus launch images:almalinux/8 target
-max_retry=10
+max_retry=3
 retry=0
 until sudo incus exec target -- ping -c 1 8.8.8.8; do
   retry=$((retry + 1))
@@ -10,7 +10,7 @@ until sudo incus exec target -- ping -c 1 8.8.8.8; do
     exit 1
   fi
   echo "Waiting for network to be ready... retrying in 2 second."
-  sleep 2
+  sleep 5
 done
 echo "Network is ready. Performing system update."
 sudo incus exec target -- sudo dnf update -y
